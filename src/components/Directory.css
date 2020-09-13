@@ -1,0 +1,8 @@
+.camp__card {
+    transition: transform 450ms;
+}
+
+.camp__card:hover {
+    transform: scale(1.08);
+}
+
