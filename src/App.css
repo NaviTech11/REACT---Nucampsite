@@ -2,7 +2,7 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
-h1, h2, h3, .card-body>.card-title {
+h1, h2, h3, .card-body > .card-title {
   font-family: "Lobster", cursive;
 }
 
