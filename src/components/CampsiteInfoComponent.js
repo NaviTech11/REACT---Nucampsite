@@ -37,7 +37,7 @@ function RenderComments({comments}){
         )
     }
 
-return <div>hi</div>
+return <div> </div>
 }
 
 function CampsiteInfo(props) {
@@ -48,9 +48,7 @@ function CampsiteInfo(props) {
                         <RenderCampsite
                         campsite={props.campsite}
                         />
-                        <RenderComments
-                        comments={props.campsite.comments}
-                        />
+                       <RenderComments comments={props.comments} />
                     </div>
                 </div>
             )
