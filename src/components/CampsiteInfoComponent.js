@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import CommentForm from './CommentFormComponent'
 
 
 
@@ -57,8 +58,14 @@ function CampsiteInfo(props) {
                         <RenderCampsite
                         campsite={props.campsite}
                         />
-                       <RenderComments comments={props.comments} />
+                            
+                        <RenderComments 
+                        comments={props.comments} 
+                        />
+                        
+                        
                     </div>
+                        <CommentForm />
                 </div>
             )
         }
