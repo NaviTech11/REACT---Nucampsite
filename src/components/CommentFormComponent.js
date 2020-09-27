@@ -27,8 +27,8 @@ class CommentFormComponent extends Component {
     }
 
     handleSubmit(values) {
-        console.log("Current state is: " + JSON.stringify(values));
-        alert("Current state is: " + JSON.stringify(values))
+        this.toggleModal();
+        this.props.addComment(this.props.campsiteId, values.rating, values.author, values.text)
     }
 
     toggleModal() {
@@ -40,13 +40,8 @@ class CommentFormComponent extends Component {
     render(){
         return (
             <div className="row">
-                <div className="col-md-5 m-1">
-
-                </div>
-                <div className="col-md-5 m-1">
-                        <Button outline onClick={this.toggleModal}><i className="fa fa-pencil fa-lg" />Submit Comment</Button>
-
-                </div>
+                
+                <Button outline onClick={this.toggleModal}><i className="fa fa-pencil fa-lg" />Submit Comment</Button>
 
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
