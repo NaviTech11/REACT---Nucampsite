@@ -21,8 +21,23 @@ export const fetchCampsites = () => dispatch => {
     dispatch(campsitesLoading());
 
     return fetch(baseUrl + 'campsites')
+        .then(response => {
+                if (response.ok){
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => {
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+        )
         .then(response => response.json())
-        .then(campsites => dispatch(addCampsites(campsites)));
+        .then(campsites => dispatch(addCampsites(campsites)))
+        .catch(error => dispatch(campsitesFailed(error.message)));
 };
 
 //ACTION CREATOR FOR LOADING
@@ -47,8 +62,23 @@ export const addCampsites = campsites => ({
 //ACTION CREATOR FOR ADD_COMMENTS ===>w/THUNK Middleware  
 export const fetchComments = () => dispatch => {
     return fetch(baseUrl + 'comments')
+        .then(response => {
+                if (response.ok){
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => {
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+        )
         .then(response => response.json())
-        .then(comments => dispatch(addComments(comments)));
+        .then(comments => dispatch(addComments(comments)))
+        .catch(error => dispatch(commentsFailed(error.message)));
 }
 
 //ACTION CREATORS FOR HANDLING COMMENTS
@@ -71,8 +101,23 @@ export const fetchPromotions = () => dispatch => {
     dispatch(promotionsLoading());
 
     return fetch(baseUrl + 'promotions')
+        .then(response => {
+                if (response.ok){
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => {
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+        )
         .then(response => response.json())
-        .then(promotions => dispatch(addPromotions(promotions)));
+        .then(promotions => dispatch(addPromotions(promotions)))
+        .catch(error => dispatch(promotionsFailed(error.message)));
 };
 
 //ACTION CREATOR FOR LOADING
