@@ -1,17 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
-//ACTION CREATOR TO ADD COMMENT
-export const addComment = (campsiteId, rating, author, text) => ({
-    type: ActionTypes.ADD_COMMENT,
-    payload: {
-        //When the identefier of a property is the same as its value, you can pass it as follows:
-         campsiteId,            // campsiteId: campsiteId,
-         rating,               // rating: rating,
-         author,              // author: author,
-         text                // text: text
-    }
-});
 
 // --------------CAMPSITES ACTIONS-----------------
 
@@ -91,6 +80,50 @@ export const addComments = comments => ({
     type: ActionTypes.ADD_COMMENTS,
     payload: comments
 });
+
+//----------ACTION CREATORs TO ADD COMMENT ---
+//This one UPDATES LOCAL REDUX STORE
+export const addComment = comment => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+})
+//This one HANDLES ASYNCHRONOUS CALL TO FETCH AND POST A NEW COMMENT TO THE SERVER - With THUNK 'dispatch' Middleware
+export const postComment = (campsiteId, rating, author, text) => dispatch => {
+    const newComment = {
+        //When the identefier of a property is the same as its value, you can pass it as follows:
+         campsiteId,            // campsiteId: campsiteId,
+         rating,               // rating: rating,
+         author,              // author: author,
+         text                // text: text
+    };
+    newComment.date = new Date().toISOString();
+
+    return fetch(baseUrl + 'comments', {
+        method: "POST",
+        body: JSON.stringify(newComment),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+            if (response.ok){
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => { throw error; }
+        )
+        .then(response => response.json())
+        .then(response => dispatch(addComment(response)))
+        .catch(error => {
+            console.log('post comment', error.message);
+            alert('Your comment could not be posted\nError: ' + error.message);
+        });
+};
+
 
 // ----------------- PROMOTIONS ACTIONS -------------------
 
