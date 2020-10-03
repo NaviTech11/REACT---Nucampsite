@@ -4,17 +4,21 @@ import './Directory.css'
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform } from 'react-animation-components';
 
 function RenderDirectoryItem({campsite}){
     return (
-        <Card>
-             <Link to={`/directory/${campsite.id}`}>
-                <CardImg width="100%" src={baseUrl + campsite.image} alt={campsite.name} />
-                <CardImgOverlay>
-                    <CardTitle>{campsite.name}</CardTitle>
-                </CardImgOverlay>
-            </Link>
-        </Card>
+       
+            <Card>
+                <Link to={`/directory/${campsite.id}`}>
+                    <CardImg width="100%" src={baseUrl + campsite.image} alt={campsite.name} />
+                    <CardImgOverlay>
+                        <CardTitle>{campsite.name}</CardTitle>
+                    </CardImgOverlay>
+                </Link>
+            </Card>
+
+        
     )
 }
 
@@ -27,6 +31,7 @@ function Directory(props) {
                        campsite={campsite}
                    />
                 </div>
+                
             )
         });
         
@@ -53,6 +58,11 @@ function Directory(props) {
 
         return (
             <div className="container">
+             <FadeTransform
+            in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateX(-50%)'
+            }}>
             <div className="row">
                 <div className="col">
                     <Breadcrumb>
@@ -63,9 +73,12 @@ function Directory(props) {
                     <hr />
                 </div>
             </div>
+           
             <div className="row">
                 {directory}
             </div>
+            </FadeTransform>
+            
         </div>
         );
     
